@@ -20,18 +20,31 @@
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="../bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/angular/angular.min.js"></script>
 
     </head>
-    <body>
-        <!--[if lt IE 10]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
-       <div ng-controller="PostsCtrl">
-            <article ng-repeat="post in posts">
+    <body ng-controller="PostsCtrl">
+        <ul>
+            <nav>
+                <li ng-repeat="tag in tags">
+                    <a href="#" id="{{tag.id}}" ng-click="setFilter(tag)">{{tag.tag}}</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="setFilter('')">clear</a>
+                </li>
+            </nav>
+        </ul>
+       <div>
+            <article ng-repeat="post in posts | filter:filters.tag" >
             <header><h1>{{post.title}}</h1></header>
               <p>{{post.text}}</p>
-              <img src="{{post.image_url}}">
+              <img ng-src="{{post.image_url}}">
+              <ul>
+                  <li data-ng-repeat="tag in post.tags">
+                      <p>{{tag.tag}}</p>
+                  </li>
+              </ul>
             </article>
         </div>
 
@@ -39,21 +52,36 @@
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
-        <script src="../bower_components/jquery/dist/jquery.js"></script>
-        <script src="../bower_components/angular/angular.min.js"></script>
+
         <!-- endbower -->
         <!-- endbuild -->
         <script type="text/javascript">
+
                 var app = angular.module("Streetstyle", []);
                 app.controller("PostsCtrl", function($scope, $http) {
-                  $http.get('http://localhost/streetstyle/public/api/posts').
+                  $scope.filters = { };
+                  $scope.setFilter = function (tag) {
+                      $scope.filters.tag = tag.tag;
+                      console.log($scope.filters.tag);
+                  };
+                  $http.get('/streetstyle/public/api/postsWithTags').
                     success(function(data, status, headers, config) {
                       $scope.posts = data;
-
+                          window.MYSCOPE = data;
                     }).
                     error(function(data, status, headers, config) {
                       // log error
                     });
+
+                    $http.get('/streetstyle/public/api/tags').
+                        success(function(data, status, headers, config) {
+                            $scope.tags = data;
+
+                        }).
+                        error(function(data, status, headers, config) {
+                            // log error
+                        });
+
                 });
         </script>
 
