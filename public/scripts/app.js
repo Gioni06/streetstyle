@@ -5,6 +5,10 @@ app.controller("PostsCtrl", function($scope, $http) {
         $scope.filters.tag = tag.tag;
         console.log($scope.filters.tag);
     };
+    $scope.setMeta = function (meta) {
+        $("meta[property='og:title']").attr("content", meta);
+        console.log(meta);
+    };
     $http.get('/streetstyle/public/api/postsWithTags').
         success(function(data, status, headers, config) {
             $scope.posts = data;

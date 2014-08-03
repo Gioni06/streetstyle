@@ -2,6 +2,7 @@
 <html class="no-js" ng-app="Streetstyle">
     <head>
         <meta charset="utf-8">
+        <meta property="og:title" content="Virgin Atlantic Advert 2010" ng-controller="PostsCtrl"/>
         <title>streetstyle</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,7 +42,7 @@
         </ul>
        <div>
             <article ng-repeat="post in posts | filter:filters.tag" >
-            <header><h1>{{post.title}}</h1></header>
+            <header><h1 ng-click="setMeta(post.title)">{{post.title}}</h1></header>
               <p>{{post.text}}</p>
               <img ng-src="{{post.image_url}}">
               <ul>
