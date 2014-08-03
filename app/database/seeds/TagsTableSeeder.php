@@ -4,13 +4,16 @@ class TagsTableSeeder extends Seeder {
 
 	public function run()
 	{
-  
-    Post::create([
+    Eloquent::unguard();
+    Tag::create([
           'tag' => 'Gesichtspflege'
       ]);
-    Post::create([
+        Tag::create([
           'tag' => 'Gewinnspiel'
       ]);
+    Tag::create([
+            'tag' => 'Körperpfege'
+        ]);
   
   }
 

@@ -4,18 +4,27 @@ class PostsTableSeeder extends Seeder {
 
 	public function run()
 	{
-	
+    Eloquent::unguard();
   	Post::create([
-          'title' => 'this is my first title',
+          'title' => 'Körperpflege',
           'text' => 'some lorem ipsum text',
-          'image_url' => 'http://placehold.it/800x600'
+          'image_url' => 'http://placehold.it/300x300'
 			]);
     Post::create([
-          'title' => 'this is my second title',
+          'title' => 'Gesichtspflege',
           'text' => 'some more lorem ipsum text',
-          'image_url' => 'http://placehold.it/800x600'
+          'image_url' => 'http://placehold.it/300x300'
       ]);
-	
-	}
+    Post::create([
+        'title' => 'Körperpflege Gewinnspiel',
+        'text' => 'some more lorem ipsum text',
+        'image_url' => 'http://placehold.it/300x300'
+        ]);
+    Post::create([
+        'title' => 'Gesichtspflege Gewinnspiel',
+        'text' => 'some more lorem ipsum text',
+        'image_url' => 'http://placehold.it/300x300'
+        ]);
+    }
 
 }
